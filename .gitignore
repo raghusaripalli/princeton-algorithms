@@ -1,0 +1,6 @@
+### IntelliJ ###
+.idea/
+princeton-algorithms.iml
+
+### Java ###
+out/
