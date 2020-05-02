@@ -1,3 +1,5 @@
+package week2;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -9,7 +11,6 @@ public class Deque<Item> implements Iterable<Item> {
     // construct an empty deque
     public Deque() {
         size = 0;
-        head = tail = null;
     }
 
     // is the deque empty?
@@ -63,7 +64,8 @@ public class Deque<Item> implements Iterable<Item> {
         }
         Node removeNode = head;
         if (head == tail) {
-            head = tail = null;
+            head = null;
+            tail = null;
         } else {
             head = removeNode.prev;
             head.next = null;
@@ -79,7 +81,8 @@ public class Deque<Item> implements Iterable<Item> {
         }
         Node removeNode = tail;
         if (head == tail) {
-            head = tail = null;
+            head = null;
+            tail = null;
         } else {
             tail = removeNode.next;
             tail.prev = null;
@@ -100,6 +103,8 @@ public class Deque<Item> implements Iterable<Item> {
 
             @Override
             public Item next() {
+                if (iterator == null)
+                    throw new NoSuchElementException("No more elements to iterate");
                 Item value = iterator.data;
                 iterator = iterator.prev;
                 return value;
@@ -119,11 +124,11 @@ public class Deque<Item> implements Iterable<Item> {
         }
         System.out.println("end");
         System.out.println(deque.removeFirst());
-        deque.size();
+        System.out.println("Size: " + deque.size());
         System.out.println(deque.removeFirst());
-        deque.size();
+        System.out.println("Size: " + deque.size());
         System.out.println(deque.removeLast());
-        deque.size();
+        System.out.println("Size: " + deque.size());
         try {
             deque.addFirst(null);
         } catch (IllegalArgumentException iae) {
@@ -137,7 +142,7 @@ public class Deque<Item> implements Iterable<Item> {
         }
     }
 
-    class Node {
+    private class Node {
         Item data;
         Node prev, next;
 
