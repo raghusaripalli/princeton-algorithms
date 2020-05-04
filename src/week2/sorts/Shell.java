@@ -1,20 +1,24 @@
 package week2.sorts;
 
-public class Insertion {
+public class Shell {
+
     public static void sort(Comparable[] a) {
         int N = a.length;
-        for (int i = 0; i < N; i++) {
-            for (int j = i; j > 0; j--) {
-                if (SortHelper.less(a[j], a[j - 1]))
-                    SortHelper.exch(a, j, j - 1);
-                else break;
+        int h = 1;
+        while (h < N / 3) h = 3 * h + 1;
+
+        while (h >= 1) {
+            for (int i = h; i < N; i++) {
+                for (int j = i; j >= h && SortHelper.less(a[j], a[j - h]); j -= h)
+                    SortHelper.exch(a, j, j - h);
             }
+            h /= 3;
         }
     }
 
     public static void main(String[] args) {
         Comparable[] arr = {2, 3, 8, 1, 4, 10, 7, 6, 5, 9};
-        Insertion.sort(arr);
+        Shell.sort(arr);
         for (int i = 0; i < 10; i++) {
             System.out.print(arr[i] + " ");
         }
